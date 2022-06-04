@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "amd",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "outFile": "public/scripts/script.js",
-    "sourceMap": true
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": false,
+    "sourceMap": true,
+    "outDir": "out-tsc",
+    "lib": [
+      "dom",
+      "es2015",
+      "es5",
+      "es6"
+    ]
   },
-  "include": ["src/ts/**/*"],
+  "include": ["./src/ts/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
