@@ -40,16 +40,10 @@ describe('Snake', () => {
         });
     });
 
-    describe('Snake changes direction', () => {
+    describe('Snake changes direction with length 4', () => {
         let snake: Snake;
         let baseCoordinate = new Coordinate(10, 20);
         let baseLength = 4;
-        let expectedCoordinates: Coordinate[] = [
-            baseCoordinate,
-            new Coordinate(11, 20),
-            new Coordinate(12, 20),
-            new Coordinate(13, 20),
-        ];
 
         beforeEach(() => {
             snake = new Snake(baseCoordinate, baseLength);
@@ -79,6 +73,81 @@ describe('Snake', () => {
             expect(snake.getDirection()).toBe(DIRECTION.LEFT);
         });
 
-    })
+    });
+
+    describe('Snake changes direction without tail', () => {
+        let snake: Snake;
+        let baseCoordinate = new Coordinate(10, 20);
+        let baseLength = 1;
+
+        beforeEach(() => {
+            snake = new Snake(baseCoordinate, baseLength);
+        });
+
+        test('Has correct default direction', () => {
+            expect(snake.getDirection()).toBe(DIRECTION.LEFT);
+        });
+
+        test('From left to left with tail', () => {
+            snake.changeDirectionTo(DIRECTION.LEFT);
+            expect(snake.getDirection()).toBe(DIRECTION.LEFT);
+        });
+
+        test('From left to top with tail', () => {
+            snake.changeDirectionTo(DIRECTION.TOP);
+            expect(snake.getDirection()).toBe(DIRECTION.TOP);
+        });
+
+        test('From left to bottom with tail', () => {
+            snake.changeDirectionTo(DIRECTION.BOTTOM);
+            expect(snake.getDirection()).toBe(DIRECTION.BOTTOM);
+        });
+
+        test('From left to right with tail at right', () => {
+            snake.changeDirectionTo(DIRECTION.RIGHT);
+            expect(snake.getDirection()).toBe(DIRECTION.RIGHT);
+        });
+    });
+
+    describe('Moves with length 4', () => {
+        let snake: Snake;
+        let baseCoordinate = new Coordinate(10, 20);
+        let baseLength = 4;
+
+
+        beforeEach(() => {
+            snake = new Snake(baseCoordinate, baseLength);
+        });
+
+        test('Moves left', () => {
+            snake.changeDirectionTo(DIRECTION.LEFT);
+            let expectedNewCoordinates: Coordinate[] = [
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            expectedNewCoordinates = [
+                new Coordinate(8, 20),
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            expectedNewCoordinates = [
+                new Coordinate(7, 20),
+                new Coordinate(8, 20),
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+        });
+    });
 
 });
