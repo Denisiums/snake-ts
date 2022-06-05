@@ -67,6 +67,38 @@ export class Snake {
         return false;
     }
 
+    getLength(): number {
+        return 1 + this.tail.length;
+    }
+
+    // boring stuff for tests
+    // getHead(): Segment {
+    //     return this.head;
+    // }
+    //
+    // getTail(): Segment[] {
+    //     return this.tail;
+    // }
+    //
+    // getDirection(): DIRECTION {
+    //     return this.direction
+    // }
+
+    getCoordinates(): Coordinate[] {
+        const result: Coordinate[] = [];
+
+        result.push(this.getHeadCoordinate());
+        this.tail.forEach(segment => {
+            result.push(segment.coordinate);
+        });
+
+        return result;
+    }
+
+
+
+    // end of boring stuff for tests
+
     private isGrowing(): boolean {
         return this.growing > 0;
     }

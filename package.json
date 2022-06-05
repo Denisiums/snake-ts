@@ -7,7 +7,8 @@
     "build2": "rollup --config rollup.config.js",
     "build": "rimraf dist && rimraf out-tsc && tsc && rollup -c rollup.config.js",
     "dev": "rimraf dist && rimraf out-tsc && tsc && concurrently --kill-others \"tsc --watch\" \"rollup -w -c rollup.config.js\"",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watchAll"
   },
   "author": "",
   "license": "ISC",
