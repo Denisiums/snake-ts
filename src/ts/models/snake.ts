@@ -80,9 +80,10 @@ export class Snake {
     //     return this.tail;
     // }
     //
-    // getDirection(): DIRECTION {
-    //     return this.direction
-    // }
+
+    getDirection(): DIRECTION {
+        return this.direction;
+    }
 
     getCoordinates(): Coordinate[] {
         const result: Coordinate[] = [];
