@@ -6,6 +6,7 @@ export class Snake {
     private tail: Segment[] = [];
     private head: Segment;
     private direction: DIRECTION = DIRECTION.LEFT;
+    private growing: number = 0;
 
     constructor(headCoordinate: Coordinate, initialLength: number) {
         this.direction = DIRECTION.LEFT;
@@ -17,11 +18,28 @@ export class Snake {
 
     move(): void {
         console.log('moving');
+        // from the latest tail - move every segment on previous segment position;
+        // 1st tail segment moves to the head position
+        // head moves forward to direction
+        if (this.hasTail()) {
+            let lastMovingSegmentIndex = this.tail.length;
+            if (this.isGrowing()) {
+                this.growTail();
+            }
+            for (let segmentIndex = lastMovingSegmentIndex; segmentIndex >= 1; segmentIndex--) {
+                this.tail[segmentIndex].moveToSegment(this.tail[segmentIndex - 1]);
+            }
+            this.tail[0].moveToSegment(this.head);
+        }
+
+        this.head.moveToDirection(this.direction);
     }
 
-    grow(): void {
+    grow(amount: number = 1): void {
+        // sanity check
         console.log('growing');
         // on next move +1 tail segment
+        this.growing = this.growing + amount;
     }
 
     crash(): void {
@@ -30,7 +48,11 @@ export class Snake {
     }
 
     // it can not move to the direction of the 1st tail segment
-    changeToDirection(direction: DIRECTION): boolean {
+    changeDirectionTo(direction: DIRECTION): boolean {
+        if (this.direction === direction) {
+            return false;
+        }
+
         if (!this.canMoveIntoDirection(direction)) {
             console.log('can not move to: ', DIRECTION);
             return false;
@@ -45,11 +67,25 @@ export class Snake {
         return false;
     }
 
-    hasTail(): boolean {
+    private isGrowing(): boolean {
+        return this.growing > 0;
+    }
+
+    private growTail(): void {
+        const lastTailSegment = this.tail[this.tail.length - 1];
+        if (this.growing < 1) {
+            return;
+        }
+
+        this.growing--;
+        this.tail.push(new Segment(lastTailSegment.coordinate));
+    }
+
+    private hasTail(): boolean {
         return !!this.tail.length;
     }
 
-    getHeadCoordinate(): Coordinate {
+    private getHeadCoordinate(): Coordinate {
         return this.head.coordinate;
     }
 

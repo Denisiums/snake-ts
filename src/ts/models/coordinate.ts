@@ -64,4 +64,10 @@ export class Coordinate {
         this.y = this.y + 1;
         return this;
     }
+
+    moveTo(coordinate: Coordinate) {
+        this.x = coordinate.x;
+        this.y = coordinate.y;
+        return this;
+    }
 }
