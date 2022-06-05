@@ -6,8 +6,11 @@ export class Game {
     previousTimeStamp: number = 0;
     accumulator: number = 0;
 
-    constructor() {
+    // we have not so many objects, so we can have a single array with them
+    // if we have many, we can update them separately
 
+    constructor() {
+        
     }
 
     start() {
@@ -39,22 +42,22 @@ export class Game {
 
 
         while (this.accumulator >= this.dt) {
-            this.updateState(this.time, this.dt);
+            this.updateState(this.dt, this.time);
 
             this.accumulator -= this.dt;
             this.time += this.dt;
         }
 
-
-
-
-
         this.previousTimeStamp = timestamp;
         requestAnimationFrame(this.step.bind(this));
     }
 
-    private updateState(time: number, dt: number) {
-        console.log('update state: ', time, dt);
+    private updateState(dt: number, time: number) {
+        console.log('update state: ', dt, time);
+        // pass data to every object (time and dt, I guess)
+        // Game knows which object it has
+        // (we are in Game)
+
     }
 
     private initialize() {
