@@ -1,18 +1,39 @@
 import {Segment} from './segment';
-import {DIRECTION} from './constants';
+import {DIRECTION, TIME_TO_MOVE} from './constants';
 import {Coordinate} from './coordinate';
+import {GameObject} from './gameObject';
 
-export class Snake {
+export class Snake implements GameObject {
     private tail: Segment[] = [];
     private head: Segment;
     private direction: DIRECTION = DIRECTION.LEFT;
     private growing: number = 0;
+    private timeToMove: number = TIME_TO_MOVE;
 
     constructor(headCoordinate: Coordinate, initialLength: number) {
         this.direction = DIRECTION.LEFT;
         this.head = new Segment(headCoordinate);
         if (initialLength > 1) {
             this.generateTail(initialLength - 1);
+        }
+    }
+
+    draw(): void {
+        // todo
+    }
+
+    update(dt: number): void {
+        this.timeToMove = this.timeToMove - dt;
+        if (this.timeToMove > 0) {
+            return;
+        }
+
+        this.move();
+        this.timeToMove = this.timeToMove + TIME_TO_MOVE;
+
+        // in case if dt is too big - repeat the update (it will "jump", but should never happen)
+        if (this.timeToMove <= 0) {
+            this.update(0);
         }
     }
 

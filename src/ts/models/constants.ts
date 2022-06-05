@@ -5,3 +5,5 @@ export enum DIRECTION {
     LEFT = 'LEFT',
     NONE = 'NONE'
 }
+
+export const TIME_TO_MOVE = 1000; //ms

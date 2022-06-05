@@ -1,6 +1,6 @@
 import {Snake} from '../snake';
 import {Coordinate} from '../coordinate';
-import {DIRECTION} from '../constants';
+import {DIRECTION, TIME_TO_MOVE} from '../constants';
 
 describe('Snake', () => {
 
@@ -246,6 +246,40 @@ describe('Snake', () => {
             expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
         });
 
+    });
+    
+    describe('Updates state', () => {
+        let snake: Snake;
+        let baseCoordinate = new Coordinate(10, 20);
+        let baseLength = 4;
+
+        test('not moves on short time update', () => {
+            const snake = new Snake(baseCoordinate.clone(), baseLength);
+            snake.move = jest.fn();
+            snake.update(1);
+            expect((snake.move as any).mock.calls.length).toBe(0);
+        });
+
+        test('Moves on equal time to move dt update', () => {
+            const snake = new Snake(baseCoordinate.clone(), baseLength);
+            snake.move = jest.fn();
+            snake.update(TIME_TO_MOVE);
+            expect((snake.move as any).mock.calls.length).toBe(1);
+        });
+
+        test('Moves on bigger time to move dt update', () => {
+            const snake = new Snake(baseCoordinate.clone(), baseLength);
+            snake.move = jest.fn();
+            snake.update(TIME_TO_MOVE + 1);
+            expect((snake.move as any).mock.calls.length).toBe(1);
+        });
+
+        test('Moves multiple times if dt is too big', () => {
+            const snake = new Snake(baseCoordinate.clone(), baseLength);
+            snake.move = jest.fn();
+            snake.update(TIME_TO_MOVE * 5 + 1);
+            expect((snake.move as any).mock.calls.length).toBe(5);
+        });
     });
 
 });
