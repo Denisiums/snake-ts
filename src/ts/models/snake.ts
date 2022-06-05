@@ -22,7 +22,7 @@ export class Snake {
         // 1st tail segment moves to the head position
         // head moves forward to direction
         if (this.hasTail()) {
-            let lastMovingSegmentIndex = this.tail.length;
+            let lastMovingSegmentIndex = this.tail.length - 1;
             if (this.isGrowing()) {
                 this.growTail();
             }

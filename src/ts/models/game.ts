@@ -1,3 +1,7 @@
+import {Snake} from './snake';
+import {Field} from './field';
+import {Coordinate} from './coordinate';
+
 export class Game {
     ended = false;
     time: number = 0;
@@ -6,11 +10,13 @@ export class Game {
     previousTimeStamp: number = 0;
     accumulator: number = 0;
 
+    objects = []; // with methods update and draw? Or just field and it cares about the rest?
+
     // we have not so many objects, so we can have a single array with them
     // if we have many, we can update them separately
 
     constructor() {
-        
+
     }
 
     start() {
@@ -29,14 +35,14 @@ export class Game {
     }
 
     private step(timestamp: number /* time from the start */) {
-        console.log('timestamp: ', timestamp);
+        // console.log('timestamp: ', timestamp);
 
         if (this.ended) {
             return;
         }
 
         const frameTime: number = timestamp - this.previousTimeStamp;
-        console.log('frameTime: ', frameTime);
+        // console.log('frameTime: ', frameTime);
 
         this.accumulator = this.accumulator + frameTime;
 
@@ -53,7 +59,7 @@ export class Game {
     }
 
     private updateState(dt: number, time: number) {
-        console.log('update state: ', dt, time);
+        // console.log('update state: ', dt, time);
         // pass data to every object (time and dt, I guess)
         // Game knows which object it has
         // (we are in Game)
@@ -62,7 +68,9 @@ export class Game {
 
     private initialize() {
         // load resources and create entities
-
+        const snake = new Snake(new Coordinate(30, 30), 4);
+        console.log('snake:', snake);
+        (window as any).snake = snake;
 
     }
 
