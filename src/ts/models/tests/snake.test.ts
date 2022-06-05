@@ -110,17 +110,13 @@ describe('Snake', () => {
     });
 
     describe('Moves with length 4', () => {
-        let snake: Snake;
         let baseCoordinate = new Coordinate(10, 20);
         let baseLength = 4;
 
-
-        beforeEach(() => {
-            snake = new Snake(baseCoordinate, baseLength);
-        });
-
         test('Moves left', () => {
+            let snake = new Snake(baseCoordinate.clone(), baseLength);
             snake.changeDirectionTo(DIRECTION.LEFT);
+
             let expectedNewCoordinates: Coordinate[] = [
                 new Coordinate(9, 20),
                 new Coordinate(10, 20),
@@ -144,6 +140,51 @@ describe('Snake', () => {
                 new Coordinate(8, 20),
                 new Coordinate(9, 20),
                 new Coordinate(10, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+        });
+
+        test('Makes a turn', () => {
+            const snake = new Snake(baseCoordinate.clone(), baseLength);
+            snake.changeDirectionTo(DIRECTION.TOP);
+            let expectedCoordinates: Coordinate[] = [
+                baseCoordinate,
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+                new Coordinate(13, 20),
+            ];
+
+            expect(snake.getCoordinates()).toMatchObject(expectedCoordinates);
+
+
+
+            let expectedNewCoordinates: Coordinate[] = [
+                new Coordinate(10, 19),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            snake.changeDirectionTo(DIRECTION.RIGHT);
+            expectedNewCoordinates = [
+                new Coordinate(11, 19),
+                new Coordinate(10, 19),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            snake.changeDirectionTo(DIRECTION.BOTTOM);
+            expectedNewCoordinates = [
+                new Coordinate(11, 20),
+                new Coordinate(11, 19),
+                new Coordinate(10, 19),
+                new Coordinate(10, 20),
+
             ];
             snake.move();
             expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
