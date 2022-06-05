@@ -1,6 +1,7 @@
 import {Coordinate} from './coordinate';
 import {DIRECTION} from './constants';
 
+// todo: mb make coordinates non-mutating?
 export class Segment {
     coordinate: Coordinate;
     constructor(coordinate: Coordinate) {

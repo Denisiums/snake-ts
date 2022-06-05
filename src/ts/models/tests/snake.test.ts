@@ -157,8 +157,6 @@ describe('Snake', () => {
 
             expect(snake.getCoordinates()).toMatchObject(expectedCoordinates);
 
-
-
             let expectedNewCoordinates: Coordinate[] = [
                 new Coordinate(10, 19),
                 new Coordinate(10, 20),
@@ -189,6 +187,65 @@ describe('Snake', () => {
             snake.move();
             expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
         });
+    });
+
+    describe('Grows', () => {
+        let baseCoordinate = new Coordinate(10, 20);
+        let baseLength = 4;
+
+        test('Grows', () => {
+            let snake = new Snake(baseCoordinate.clone(), baseLength);
+            snake.changeDirectionTo(DIRECTION.LEFT);
+            snake.grow();
+
+            let expectedNewCoordinates: Coordinate[] = [
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+                new Coordinate(13, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            expectedNewCoordinates = [
+                new Coordinate(8, 20),
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            snake.grow(2);
+
+            // grow 1 segment
+            expectedNewCoordinates = [
+                new Coordinate(7, 20),
+                new Coordinate(8, 20),
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+
+            //grow another segment
+            expectedNewCoordinates = [
+                new Coordinate(6, 20),
+                new Coordinate(7, 20),
+                new Coordinate(8, 20),
+                new Coordinate(9, 20),
+                new Coordinate(10, 20),
+                new Coordinate(11, 20),
+                new Coordinate(12, 20),
+            ];
+            snake.move();
+            expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
+        });
+
     });
 
 });

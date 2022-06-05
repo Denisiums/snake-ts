@@ -40,6 +40,7 @@ export class Snake {
         console.log('growing');
         // on next move +1 tail segment
         this.growing = this.growing + amount;
+        // mb it should first grow, then move out? No ideas what's better. Probably should grow first, but now - it grows during moving.
     }
 
     crash(): void {
@@ -111,7 +112,7 @@ export class Snake {
         }
 
         this.growing--;
-        this.tail.push(new Segment(lastTailSegment.coordinate));
+        this.tail.push(new Segment(lastTailSegment.coordinate.clone()));
     }
 
     private hasTail(): boolean {
