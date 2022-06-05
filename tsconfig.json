@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "out-tsc",
     "lib": [
@@ -15,5 +15,5 @@
     ]
   },
   "include": ["./src/ts/**/*.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
