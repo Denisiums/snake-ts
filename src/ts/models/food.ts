@@ -1,5 +1,6 @@
 import {Coordinate} from './coordinate';
 import {GameObject} from './gameObject';
+import {Renderer} from '../utils/renderer';
 
 export class Food implements GameObject {
     coordinate: Coordinate;
@@ -12,7 +13,7 @@ export class Food implements GameObject {
 
     }
 
-    draw() {
+    draw(renderer: Renderer) {
 
     }
 }

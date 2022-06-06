@@ -2,6 +2,8 @@ import {Snake} from './snake';
 import {Field} from './field';
 import {Coordinate} from './coordinate';
 import {Game} from './game';
+import {Renderer} from '../utils/renderer';
+import {CanvasRenderer} from '../utils/canvasRenderer';
 
 const SIZE_X = 60;
 const SIZE_Y = 60;
@@ -15,6 +17,7 @@ export class GameLoop {
     accumulator: number = 0;
 
     game: Game | null = null;
+    renderer: Renderer | null = null;
 
     objects = []; // with methods update and draw? Or just field and it cares about the rest?
 
@@ -84,15 +87,19 @@ export class GameLoop {
         }
 
         this.game?.update(dt, time);
-
     }
 
     private draw(): void {
-        this.game?.draw();
+        if (!this.renderer) {
+            return;
+        }
+
+        this.game?.draw(this.renderer);
     }
 
     private initialize() {
         // load resources and create entities
+        this.renderer = new CanvasRenderer(SIZE_X, SIZE_Y);
         this.game = new Game(SIZE_X, SIZE_Y);
 
         console.log('game:', this.game);

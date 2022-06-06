@@ -3,6 +3,7 @@ import {Snake} from './snake';
 import {Coordinate} from './coordinate';
 import {Field} from './field';
 import {Food} from './food';
+import {Renderer} from '../utils/renderer';
 
 const INITIAL_SNAKE_LENGTH = 4;
 
@@ -53,8 +54,10 @@ export class Game implements GameObject {
 
     }
 
-    draw(): void {
-
+    draw(renderer: Renderer): void {
+        this.field.draw(renderer);
+        this.food.draw(renderer);
+        this.snake.draw(renderer);
     }
 
     private createFood(coordinate: Coordinate): Food {

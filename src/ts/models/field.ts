@@ -1,6 +1,7 @@
 import {Coordinate} from './coordinate';
 import {getRandomWithinRange} from '../utils/helpers';
 import {GameObject} from './gameObject';
+import {Renderer} from '../utils/renderer';
 
 export class Field implements GameObject{
 
@@ -33,7 +34,7 @@ export class Field implements GameObject{
 
     }
 
-    draw() {
+    draw(renderer: Renderer) {
 
     }
 }

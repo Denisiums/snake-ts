@@ -2,6 +2,7 @@ import {Segment} from './segment';
 import {DIRECTION, TIME_TO_MOVE} from './constants';
 import {Coordinate} from './coordinate';
 import {GameObject} from './gameObject';
+import {Renderer} from '../utils/renderer';
 
 export class Snake implements GameObject {
     private tail: Segment[] = [];
@@ -19,7 +20,7 @@ export class Snake implements GameObject {
         }
     }
 
-    draw(): void {
+    draw(renderer: Renderer): void {
         // todo
     }
 
