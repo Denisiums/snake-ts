@@ -249,7 +249,6 @@ describe('Snake', () => {
     });
     
     describe('Updates state', () => {
-        let snake: Snake;
         let baseCoordinate = new Coordinate(10, 20);
         let baseLength = 4;
 

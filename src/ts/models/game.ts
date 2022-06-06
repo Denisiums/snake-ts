@@ -1,78 +1,105 @@
+import {GameObject} from './gameObject';
 import {Snake} from './snake';
-import {Field} from './field';
 import {Coordinate} from './coordinate';
+import {Field} from './field';
+import {Food} from './food';
 
-export class Game {
-    ended = false;
-    time: number = 0;
-    dt: number = 10; // 10ms
+const INITIAL_SNAKE_LENGTH = 4;
 
-    previousTimeStamp: number = 0;
-    accumulator: number = 0;
+// it will know all objects and operate them
+export class Game implements GameObject {
+    finished: boolean = false;
+    snake: Snake;
+    field: Field;
+    food: Food;
 
-    objects = []; // with methods update and draw? Or just field and it cares about the rest?
+    private sizeX: number;
+    private sizeY: number;
 
-    // we have not so many objects, so we can have a single array with them
-    // if we have many, we can update them separately
+    constructor(sizeX: number, sizeY: number) {
+        if (sizeX < INITIAL_SNAKE_LENGTH * 2 || sizeY < INITIAL_SNAKE_LENGTH) {
+            throw new Error('The field is too small');
+        }
 
-    constructor() {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        this.field = new Field(sizeX, sizeY);
+        const centerX = Math.floor(sizeX / 2);
+        const centerY = Math.floor(sizeY / 2);
+        this.snake = new Snake(new Coordinate(centerX, centerY), INITIAL_SNAKE_LENGTH);
+        const emptyCoordinate = this.getRandomEmptyCoordinate();
+        if (!emptyCoordinate) {
+            throw new Error('Not found empty coordinate to place food at the start of the game!');
+        }
+        this.food = this.createFood(emptyCoordinate);
 
     }
 
-    start() {
-        this.ended = false;
-        this.initialize();
-
-        this.step(0);
+    update(dt: number, time?: number): void {
 
     }
 
+    draw(): void {
 
-
-    end() {
-        // end game loop
-        this.ended = true;
     }
 
-    private step(timestamp: number /* time from the start */) {
-        // console.log('timestamp: ', timestamp);
+    private createFood(coordinate: Coordinate): Food {
+        return new Food(coordinate);
+    }
 
-        if (this.ended) {
+    private getRandomEmptyCoordinate(): Coordinate | null {
+        // check if it's empty
+        // if not - reroll and repeat.
+        // if a snake takes the whole field - win
+        if (this.isSnakeCoversField()) {
+            return null;
+        }
+
+        let randomFieldCoordinate = this.field.getRandomCoordinate();
+        while (!this.isCoordinateEmpty(randomFieldCoordinate)) {
+            randomFieldCoordinate = this.field.getRandomCoordinate();
+            console.log('looking for empty coordinate... ', randomFieldCoordinate);
+        }
+
+        return randomFieldCoordinate;
+    }
+
+    private win(): void {
+        this.finished = true;
+        alert('You won!');
+    }
+
+    private isSnakeCoversField(): boolean {
+        const fieldSize = (this.sizeX + 1) * (this.sizeY + 1);
+        const snakeLength = this.snake.getCoordinates().length - 1; // 1 free space
+        return snakeLength >= fieldSize;
+    }
+
+    private isCoordinateEmpty(coordinate: Coordinate): boolean {
+        const snakeCoordinates = this.snake.getCoordinates();
+        const foodCoordinate = this.food.coordinate;
+
+        if (foodCoordinate.isSame(coordinate)) {
+            return false;
+        }
+
+        return !snakeCoordinates.some(segmentCoordinate => {
+            segmentCoordinate.isSame(coordinate)
+        });
+
+    }
+
+    private eatFood(): void {
+        this.snake.grow();
+        const emptyCoordinate = this.getRandomEmptyCoordinate();
+        if (!emptyCoordinate) {
+            this.win();
             return;
         }
-
-        const frameTime: number = timestamp - this.previousTimeStamp;
-        // console.log('frameTime: ', frameTime);
-
-        this.accumulator = this.accumulator + frameTime;
-
-
-        while (this.accumulator >= this.dt) {
-            this.updateState(this.dt, this.time);
-
-            this.accumulator -= this.dt;
-            this.time += this.dt;
-        }
-
-        this.previousTimeStamp = timestamp;
-        requestAnimationFrame(this.step.bind(this));
+        this.food = this.createFood(emptyCoordinate);
     }
 
-    private updateState(dt: number, time: number) {
-        // console.log('update state: ', dt, time);
-        // pass data to every object (time and dt, I guess)
-        // Game knows which object it has
-        // (we are in Game)
 
-    }
-
-    private initialize() {
-        // load resources and create entities
-        const snake = new Snake(new Coordinate(30, 30), 4);
-        console.log('snake:', snake);
-        (window as any).snake = snake;
-
-    }
 
 
 }

@@ -1,8 +1,8 @@
-import {Game} from './models/game';
+import {GameLoop} from './models/gameLoop';
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('lalala loaded');
-    const game = new Game();
+    const game = new GameLoop();
     game.start();
 
     setTimeout(() => {
