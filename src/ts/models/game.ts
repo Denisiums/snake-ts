@@ -4,6 +4,7 @@ import {Coordinate} from './coordinate';
 import {Field} from './field';
 import {Food} from './food';
 import {Renderer} from '../utils/renderer';
+import {DIRECTION, KEY_CODES} from './constants';
 
 const INITIAL_SNAKE_LENGTH = 4;
 
@@ -59,6 +60,26 @@ export class Game implements GameObject {
         this.field.draw(renderer);
         this.food.draw(renderer);
         this.snake.draw(renderer);
+    }
+
+    handleControl(keyCode: KEY_CODES) {
+        switch(keyCode) {
+            case KEY_CODES.ARROW_LEFT:
+                this.snake.changeDirectionTo(DIRECTION.LEFT)
+                break;
+            case KEY_CODES.ARROW_UP:
+                this.snake.changeDirectionTo(DIRECTION.UP)
+                break;
+            case KEY_CODES.ARROW_RIGHT:
+                this.snake.changeDirectionTo(DIRECTION.RIGHT)
+                break;
+            case KEY_CODES.ARROW_DOWN:
+                this.snake.changeDirectionTo(DIRECTION.DOWN)
+                break;
+            default:
+                // do nothing
+        }
+            
     }
 
     private createFood(coordinate: Coordinate): Food {

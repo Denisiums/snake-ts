@@ -1,12 +1,12 @@
 export enum DIRECTION {
-    TOP = 'TOP',
+    UP = 'UP',
     RIGHT = 'RIGHT',
-    BOTTOM = 'BOTTOM',
+    DOWN = 'DOWN',
     LEFT = 'LEFT',
     NONE = 'NONE'
 }
 
-export const TIME_TO_MOVE = 1000; //ms
+export const TIME_TO_MOVE = 300; //ms
 export const SIZE_X = 40;
 export const SIZE_Y = 40;
 
@@ -16,4 +16,11 @@ export enum COLOR {
     WHITE = '#ffffff',
     HEAD = '#fead00',
     FOOD = '#f0000d',
+}
+
+export enum KEY_CODES {
+    ARROW_LEFT = 37,
+    ARROW_UP = 38,
+    ARROW_RIGHT = 39,
+    ARROW_DOWN = 40,
 }

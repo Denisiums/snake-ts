@@ -24,10 +24,10 @@ export class Segment {
             case DIRECTION.RIGHT:
                 this.coordinate.moveRight();
                 break;
-            case DIRECTION.TOP:
+            case DIRECTION.UP:
                 this.coordinate.moveTop();
                 break;
-            case DIRECTION.BOTTOM:
+            case DIRECTION.DOWN:
                 this.coordinate.moveBottom();
                 break;
             default:

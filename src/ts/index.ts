@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const gameLoop = new GameLoop();
     gameLoop.start();
 
-    setTimeout(() => {
-        gameLoop.end();
-    }, 10000);
+    // setTimeout(() => {
+    //     gameLoop.end();
+    // }, 15000);
 });
 

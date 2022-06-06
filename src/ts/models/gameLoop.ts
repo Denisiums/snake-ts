@@ -4,7 +4,7 @@ import {Coordinate} from './coordinate';
 import {Game} from './game';
 import {Renderer} from '../utils/renderer';
 import {CanvasRenderer} from '../utils/canvasRenderer';
-import {SIZE_X, SIZE_Y} from './constants';
+import {KEY_CODES, SIZE_X, SIZE_Y} from './constants';
 
 export class GameLoop {
     ended = false;
@@ -103,7 +103,15 @@ export class GameLoop {
 
         console.log('game:', this.game);
         (window as any).game = this.game;
+        this.bindControls();
     }
 
+    // todo: unbind controls on exit
+    private bindControls(): void {
+        document.addEventListener('keydown', this.onKeyPress.bind(this)); // arrows
+    }
 
+    private onKeyPress(event: KeyboardEvent) {
+        this.game?.handleControl(event.keyCode as KEY_CODES);
+    }
 }

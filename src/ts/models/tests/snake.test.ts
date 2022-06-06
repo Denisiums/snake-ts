@@ -59,13 +59,13 @@ describe('Snake', () => {
         });
 
         test('From left to top with tail', () => {
-            snake.changeDirectionTo(DIRECTION.TOP);
-            expect(snake.getDirection()).toBe(DIRECTION.TOP);
+            snake.changeDirectionTo(DIRECTION.UP);
+            expect(snake.getDirection()).toBe(DIRECTION.UP);
         });
 
         test('From left to bottom with tail', () => {
-            snake.changeDirectionTo(DIRECTION.BOTTOM);
-            expect(snake.getDirection()).toBe(DIRECTION.BOTTOM);
+            snake.changeDirectionTo(DIRECTION.DOWN);
+            expect(snake.getDirection()).toBe(DIRECTION.DOWN);
         });
 
         test('From left to right with tail at right', () => {
@@ -94,13 +94,13 @@ describe('Snake', () => {
         });
 
         test('From left to top with tail', () => {
-            snake.changeDirectionTo(DIRECTION.TOP);
-            expect(snake.getDirection()).toBe(DIRECTION.TOP);
+            snake.changeDirectionTo(DIRECTION.UP);
+            expect(snake.getDirection()).toBe(DIRECTION.UP);
         });
 
         test('From left to bottom with tail', () => {
-            snake.changeDirectionTo(DIRECTION.BOTTOM);
-            expect(snake.getDirection()).toBe(DIRECTION.BOTTOM);
+            snake.changeDirectionTo(DIRECTION.DOWN);
+            expect(snake.getDirection()).toBe(DIRECTION.DOWN);
         });
 
         test('From left to right with tail at right', () => {
@@ -147,7 +147,7 @@ describe('Snake', () => {
 
         test('Makes a turn', () => {
             const snake = new Snake(baseCoordinate.clone(), baseLength);
-            snake.changeDirectionTo(DIRECTION.TOP);
+            snake.changeDirectionTo(DIRECTION.UP);
             let expectedCoordinates: Coordinate[] = [
                 baseCoordinate,
                 new Coordinate(11, 20),
@@ -176,7 +176,7 @@ describe('Snake', () => {
             snake.move();
             expect(snake.getCoordinates()).toMatchObject(expectedNewCoordinates);
 
-            snake.changeDirectionTo(DIRECTION.BOTTOM);
+            snake.changeDirectionTo(DIRECTION.DOWN);
             expectedNewCoordinates = [
                 new Coordinate(11, 20),
                 new Coordinate(11, 19),

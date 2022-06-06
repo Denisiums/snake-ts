@@ -182,11 +182,11 @@ export class Snake implements GameObject {
         }
 
         if (firstTailSegmentCoordinate.isSame(headCoordinate.getTopCoordinate())) {
-            return DIRECTION.TOP;
+            return DIRECTION.UP;
         }
 
         if (firstTailSegmentCoordinate.isSame(headCoordinate.getBottomCoordinate())) {
-            return DIRECTION.BOTTOM;
+            return DIRECTION.DOWN;
         }
 
         return DIRECTION.NONE;
