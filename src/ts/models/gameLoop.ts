@@ -18,6 +18,8 @@ export class GameLoop {
 
     objects = []; // with methods update and draw? Or just field and it cares about the rest?
 
+    private animationFrame: any;
+
     // we have not so many objects, so we can have a single array with them
     // if we have many, we can update them separately
 
@@ -38,6 +40,10 @@ export class GameLoop {
     end() {
         // end game loop
         this.ended = true;
+        console.log('end of game loop');
+        if (this.animationFrame) {
+            cancelAnimationFrame(this.animationFrame);
+        }
     }
 
     private step(timestamp: number /* time from the start */) {
@@ -64,7 +70,7 @@ export class GameLoop {
         this.draw();
 
         this.previousTimeStamp = timestamp;
-        requestAnimationFrame(this.step.bind(this));
+        this.animationFrame = requestAnimationFrame(this.step.bind(this));
     }
 
     private updateState(dt: number, time: number) {
@@ -72,6 +78,11 @@ export class GameLoop {
         // pass data to every object (time and dt, I guess)
         // Game knows which object it has
         // (we are in Game)
+        if (this.game?.finished) {
+            this.end();
+            return;
+        }
+
         this.game?.update(dt, time);
 
     }

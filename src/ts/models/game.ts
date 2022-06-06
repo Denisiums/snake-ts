@@ -104,9 +104,7 @@ export class Game implements GameObject {
 
     private isCoordinateEmpty(coordinate: Coordinate): boolean {
         const snakeCoordinates = this.snake.getCoordinates();
-        const foodCoordinate = this.food.coordinate;
-
-        if (foodCoordinate.isSame(coordinate)) {
+        if (this.food && this.food.coordinate && this.food.coordinate.isSame(coordinate)) {
             return false;
         }
 

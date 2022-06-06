@@ -2,11 +2,11 @@ import {GameLoop} from './models/gameLoop';
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('lalala loaded');
-    const game = new GameLoop();
-    game.start();
+    const gameLoop = new GameLoop();
+    gameLoop.start();
 
     setTimeout(() => {
-        game.end();
-    }, 5000)
+        gameLoop.end();
+    }, 10000);
 });
 

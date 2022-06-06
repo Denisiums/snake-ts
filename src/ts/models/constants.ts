@@ -6,4 +6,4 @@ export enum DIRECTION {
     NONE = 'NONE'
 }
 
-export const TIME_TO_MOVE = 1000; //ms
+export const TIME_TO_MOVE = 100; //ms
