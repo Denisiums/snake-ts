@@ -6,7 +6,10 @@ export enum DIRECTION {
     NONE = 'NONE'
 }
 
-export const TIME_TO_MOVE = 100; //ms
+export const TIME_TO_MOVE = 1000; //ms
+export const SIZE_X = 40;
+export const SIZE_Y = 40;
+
 
 export enum COLOR {
     BLACK = '#000000',

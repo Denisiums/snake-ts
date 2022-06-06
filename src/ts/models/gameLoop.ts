@@ -4,9 +4,7 @@ import {Coordinate} from './coordinate';
 import {Game} from './game';
 import {Renderer} from '../utils/renderer';
 import {CanvasRenderer} from '../utils/canvasRenderer';
-
-const SIZE_X = 60;
-const SIZE_Y = 60;
+import {SIZE_X, SIZE_Y} from './constants';
 
 export class GameLoop {
     ended = false;

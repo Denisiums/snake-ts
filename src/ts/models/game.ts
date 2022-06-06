@@ -55,6 +55,7 @@ export class Game implements GameObject {
     }
 
     draw(renderer: Renderer): void {
+        renderer.clear();
         this.field.draw(renderer);
         this.food.draw(renderer);
         this.snake.draw(renderer);

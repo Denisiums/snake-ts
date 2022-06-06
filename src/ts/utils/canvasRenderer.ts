@@ -5,8 +5,9 @@ import {Field} from '../models/field';
 import {Coordinate} from '../models/coordinate';
 import {COLOR} from '../models/constants';
 
-const CELL_WIDTH = 10;
-const CELL_HEIGHT = 10;
+const CELL_WIDTH = 20;
+const CELL_HEIGHT = 20;
+const CELL_BORDER = 2;
 // const BORDER_WIDTH = 5;
 
 export class CanvasRenderer extends Renderer {
@@ -58,7 +59,7 @@ export class CanvasRenderer extends Renderer {
         const y = this.getCoordinateCanvasY(coordinate);
         this.context?.fillRect(x, y, CELL_WIDTH, CELL_HEIGHT);
         this.context.fillStyle = color || COLOR.WHITE;
-        this.context?.fillRect(x, y, CELL_WIDTH, CELL_HEIGHT);
+        this.context?.fillRect(x + CELL_BORDER, y + CELL_BORDER, CELL_WIDTH - 2 * CELL_BORDER, CELL_HEIGHT - 2 * CELL_BORDER);
         this.context.fillStyle = COLOR.BLACK;
     }
 
