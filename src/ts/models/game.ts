@@ -86,6 +86,7 @@ export class Game implements GameObject {
         return new Food(coordinate);
     }
 
+    // todo: need to test this method
     private getRandomEmptyCoordinate(): Coordinate | null {
         // check if it's empty
         // if not - reroll and repeat.
@@ -97,7 +98,6 @@ export class Game implements GameObject {
         let randomFieldCoordinate = this.field.getRandomCoordinate();
         while (!this.isCoordinateEmpty(randomFieldCoordinate)) {
             randomFieldCoordinate = this.field.getRandomCoordinate();
-            console.log('looking for empty coordinate... ', randomFieldCoordinate);
         }
 
         return randomFieldCoordinate;
@@ -135,7 +135,7 @@ export class Game implements GameObject {
         }
 
         return !snakeCoordinates.some(segmentCoordinate => {
-            segmentCoordinate.isSame(coordinate)
+            return segmentCoordinate.isSame(coordinate);
         });
 
     }
