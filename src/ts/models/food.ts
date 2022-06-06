@@ -14,6 +14,6 @@ export class Food implements GameObject {
     }
 
     draw(renderer: Renderer) {
-
+        renderer.drawFood(this);
     }
 }

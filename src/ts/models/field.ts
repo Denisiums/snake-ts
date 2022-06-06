@@ -35,6 +35,6 @@ export class Field implements GameObject{
     }
 
     draw(renderer: Renderer) {
-
+        renderer.drawField(this);
     }
 }

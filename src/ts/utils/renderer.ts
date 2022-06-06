@@ -3,9 +3,11 @@ import {Food} from '../models/food';
 import {Field} from '../models/field';
 
 export abstract class Renderer {
-    abstract renderSnake(snake: Snake): void;
+    abstract drawSnake(snake: Snake): void;
 
-    abstract renderFood(food: Food): void;
+    abstract drawFood(food: Food): void;
 
-    abstract renderField(field: Field): void;
+    abstract drawField(field: Field): void;
+
+    abstract clear(): void;
 }

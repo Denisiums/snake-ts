@@ -91,12 +91,12 @@ export class Game implements GameObject {
 
     private onCrash(): void {
         this.finished = true;
-        alert('You lose');
+        console.log('You lose');
     }
 
     private win(): void {
         this.finished = true;
-        alert('You won!');
+        console.log('You won!');
     }
 
     private isSnakeCoversField(): boolean {

@@ -91,6 +91,7 @@ export class GameLoop {
 
     private draw(): void {
         if (!this.renderer) {
+            console.log('no renderer!');
             return;
         }
 

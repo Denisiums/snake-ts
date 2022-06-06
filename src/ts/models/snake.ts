@@ -21,7 +21,7 @@ export class Snake implements GameObject {
     }
 
     draw(renderer: Renderer): void {
-        // todo
+        renderer.drawSnake(this);
     }
 
     update(dt: number): void {
@@ -132,7 +132,7 @@ export class Snake implements GameObject {
 
     // end of boring stuff for tests
 
-    private getTailCoordinates(): Coordinate[] {
+    getTailCoordinates(): Coordinate[] {
         const result: Coordinate[] = [];
         this.tail.forEach(segment => {
             result.push(segment.coordinate);
