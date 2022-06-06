@@ -20,9 +20,9 @@ export class CanvasRenderer extends Renderer {
         super();
 
         const canvas = document.createElement('canvas');
-        this.canvasWidth = sizeX * CELL_WIDTH;
+        this.canvasWidth = (sizeX + 1) * CELL_WIDTH;
         canvas.width = this.canvasWidth;
-        this.canvasHeight = sizeY * CELL_HEIGHT;
+        this.canvasHeight = (sizeY + 1) * CELL_HEIGHT;
         canvas.height = this.canvasHeight;
         canvas.id = 'canvas';
         this.canvas = canvas;

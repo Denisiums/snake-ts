@@ -11,6 +11,7 @@ export class Snake implements GameObject {
     private growing: number = 0;
     private timeToMove: number = TIME_TO_MOVE;
     private crashChecked: boolean = false;
+    private crashed: boolean = false;
 
     constructor(headCoordinate: Coordinate, initialLength: number) {
         this.direction = DIRECTION.LEFT;
@@ -31,6 +32,7 @@ export class Snake implements GameObject {
         }
 
         this.move();
+        this.isEatingHerself();
         this.timeToMove = this.timeToMove + TIME_TO_MOVE;
 
         // in case if dt is too big - repeat the update (it will "jump", but should never happen)
@@ -40,7 +42,6 @@ export class Snake implements GameObject {
     }
 
     move(): void {
-        console.log('moving');
         // from the latest tail - move every segment on previous segment position;
         // 1st tail segment moves to the head position
         // head moves forward to direction
@@ -61,7 +62,6 @@ export class Snake implements GameObject {
 
     grow(amount: number = 1): void {
         // sanity check
-        console.log('growing');
         // on next move +1 tail segment
         this.growing = this.growing + amount;
         // mb it should first grow, then move out? No ideas what's better. Probably should grow first, but now - it grows during moving.
@@ -79,7 +79,6 @@ export class Snake implements GameObject {
         }
 
         if (!this.canMoveIntoDirection(direction)) {
-            console.log('can not move to: ', DIRECTION);
             return false;
         }
 
@@ -87,32 +86,33 @@ export class Snake implements GameObject {
         return true;
     }
 
-    isEatingHerself(): boolean {
+    isCrashed(): boolean {
+        return this.crashed;
+    }
+
+    // todo: cover with tests
+    private isEatingHerself(): boolean {
+        if (this.crashed) {
+            return true;
+        }
+
         if (this.crashChecked) {
-            return false;
+            return this.crashed;
         }
 
         this.crashChecked = true;
         const headCoordinate = this.getHeadCoordinate();
         const tailCoordinates = this.getTailCoordinates();
-        return tailCoordinates.some(coordinate => {
-            coordinate.isSame(headCoordinate);
+        const crashed = tailCoordinates.some(coordinate => {
+            return coordinate.isSame(headCoordinate);
         });
+        this.crashed = crashed;
+        return this.crashed;
     }
 
     getLength(): number {
         return 1 + this.tail.length;
     }
-
-    // boring stuff for tests
-    // getHead(): Segment {
-    //     return this.head;
-    // }
-    //
-    // getTail(): Segment[] {
-    //     return this.tail;
-    // }
-    //
 
     getDirection(): DIRECTION {
         return this.direction;
@@ -129,8 +129,6 @@ export class Snake implements GameObject {
     getHeadCoordinate(): Coordinate {
         return this.head.coordinate;
     }
-
-    // end of boring stuff for tests
 
     getTailCoordinates(): Coordinate[] {
         const result: Coordinate[] = [];

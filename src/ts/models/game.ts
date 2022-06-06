@@ -108,7 +108,8 @@ export class Game implements GameObject {
     }
 
     private isSnakeCrashed(): boolean {
-        return this.field.isOutsideOfBorders(this.snake.getHeadCoordinate()) || this.snake.isEatingHerself();
+        const outsideOfBorders = this.field.isOutsideOfBorders(this.snake.getHeadCoordinate());
+        return outsideOfBorders || this.snake.isCrashed();
     }
 
     private onCrash(): void {
