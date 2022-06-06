@@ -45,11 +45,12 @@ export class Snake implements GameObject {
         // from the latest tail - move every segment on previous segment position;
         // 1st tail segment moves to the head position
         // head moves forward to direction
+        if (this.isGrowing()) {
+            this.growTail();
+        }
+
         if (this.hasTail()) {
             let lastMovingSegmentIndex = this.tail.length - 1;
-            if (this.isGrowing()) {
-                this.growTail();
-            }
             for (let segmentIndex = lastMovingSegmentIndex; segmentIndex >= 1; segmentIndex--) {
                 this.tail[segmentIndex].moveToSegment(this.tail[segmentIndex - 1]);
             }
@@ -143,7 +144,7 @@ export class Snake implements GameObject {
     }
 
     private growTail(): void {
-        const lastTailSegment = this.tail[this.tail.length - 1];
+        const lastTailSegment = this.tail[this.tail.length - 1] || this.head;
         if (this.growing < 1) {
             return;
         }
