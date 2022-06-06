@@ -36,6 +36,20 @@ export class Game implements GameObject {
     }
 
     update(dt: number, time?: number): void {
+        // check if snake head of the food - eat it
+        if (this.isSnakeOnFood()) {
+            this.eatFood();
+        }
+
+        this.field.update(dt);
+        this.food.update(dt);
+        this.snake.update(dt);
+
+        if (this.isSnakeCrashed()) {
+            this.onCrash();
+        }
+
+        // check if snake crashed (on the field or by herself)
 
     }
 
@@ -62,6 +76,19 @@ export class Game implements GameObject {
         }
 
         return randomFieldCoordinate;
+    }
+
+    private isSnakeOnFood(): boolean {
+        return this.snake.getHeadCoordinate().isSame(this.food.coordinate);
+    }
+
+    private isSnakeCrashed(): boolean {
+        return this.field.isOutsideOfBorders(this.snake.getHeadCoordinate()) || this.snake.isEatingHerself();
+    }
+
+    private onCrash(): void {
+        this.finished = true;
+        alert('You lose');
     }
 
     private win(): void {
@@ -91,6 +118,10 @@ export class Game implements GameObject {
 
     private eatFood(): void {
         this.snake.grow();
+        this.createFoodSomewhere();
+    }
+
+    private createFoodSomewhere(): void {
         const emptyCoordinate = this.getRandomEmptyCoordinate();
         if (!emptyCoordinate) {
             this.win();

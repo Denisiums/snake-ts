@@ -9,6 +9,7 @@ export class Snake implements GameObject {
     private direction: DIRECTION = DIRECTION.LEFT;
     private growing: number = 0;
     private timeToMove: number = TIME_TO_MOVE;
+    private crashChecked: boolean = false;
 
     constructor(headCoordinate: Coordinate, initialLength: number) {
         this.direction = DIRECTION.LEFT;
@@ -54,6 +55,7 @@ export class Snake implements GameObject {
         }
 
         this.head.moveToDirection(this.direction);
+        this.crashChecked = false;
     }
 
     grow(amount: number = 1): void {
@@ -85,8 +87,16 @@ export class Snake implements GameObject {
     }
 
     isEatingHerself(): boolean {
-        // todo
-        return false;
+        if (this.crashChecked) {
+            return false;
+        }
+
+        this.crashChecked = true;
+        const headCoordinate = this.getHeadCoordinate();
+        const tailCoordinates = this.getTailCoordinates();
+        return tailCoordinates.some(coordinate => {
+            coordinate.isSame(headCoordinate);
+        });
     }
 
     getLength(): number {
@@ -111,16 +121,23 @@ export class Snake implements GameObject {
         const result: Coordinate[] = [];
 
         result.push(this.getHeadCoordinate());
-        this.tail.forEach(segment => {
-            result.push(segment.coordinate);
-        });
-
+        this.getTailCoordinates().forEach(coordinate => result.push(coordinate));
         return result;
     }
 
-
+    getHeadCoordinate(): Coordinate {
+        return this.head.coordinate;
+    }
 
     // end of boring stuff for tests
+
+    private getTailCoordinates(): Coordinate[] {
+        const result: Coordinate[] = [];
+        this.tail.forEach(segment => {
+            result.push(segment.coordinate);
+        });
+        return result;
+    }
 
     private isGrowing(): boolean {
         return this.growing > 0;
@@ -138,10 +155,6 @@ export class Snake implements GameObject {
 
     private hasTail(): boolean {
         return !!this.tail.length;
-    }
-
-    private getHeadCoordinate(): Coordinate {
-        return this.head.coordinate;
     }
 
     private canMoveIntoDirection(direction: DIRECTION): boolean {

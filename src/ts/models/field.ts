@@ -1,7 +1,8 @@
 import {Coordinate} from './coordinate';
 import {getRandomWithinRange} from '../utils/helpers';
+import {GameObject} from './gameObject';
 
-export class Field {
+export class Field implements GameObject{
 
     private sizeX: number;
     private sizeY: number;
@@ -17,5 +18,22 @@ export class Field {
         const x = getRandomWithinRange(0, this.sizeX);
         const y = getRandomWithinRange(0, this.sizeY);
         return new Coordinate(x, y);
+    }
+
+    isOutsideOfBorders(coordinate: Coordinate): boolean {
+        const x = coordinate.x;
+        const y = coordinate.y;
+        return x > this.sizeX
+            || x < 0
+            || y > this.sizeY
+            || y < 0;
+    }
+
+    update(dt: number, time?: number) {
+
+    }
+
+    draw() {
+
     }
 }
