@@ -115,11 +115,13 @@ export class Game implements GameObject {
     private onCrash(): void {
         this.finished = true;
         console.log('You lose');
+        // todo: add a "lose" splash screen
     }
 
     private win(): void {
         this.finished = true;
         console.log('You won!');
+        // todo: make a condition to winning (filling the whole screen?)
     }
 
     private isSnakeCoversField(): boolean {

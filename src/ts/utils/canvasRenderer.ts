@@ -42,7 +42,7 @@ export class CanvasRenderer extends Renderer {
     }
 
     drawField(field: Field) {
-        // lines?
+        // todo: lines?
     }
 
     clear() {
